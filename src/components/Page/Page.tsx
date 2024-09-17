@@ -5,7 +5,7 @@ interface Props {
   children: ReactNode;
 }
 
-const Page = ({ children }: Props) => {
+const Page = async ({ children }: Props) => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>{children}</main>

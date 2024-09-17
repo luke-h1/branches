@@ -1,6 +1,7 @@
 import axios from "axios";
 
-interface Version {
+export interface Version {
+  title: string;
   environment: "development" | "production" | "staging";
   version: string;
   deployedBy: string;
@@ -12,17 +13,19 @@ const versionService = {
   lhowsamVersions: async (): Promise<Version[]> => {
     const [development, production] = await Promise.all([
       axios.get<Version>("https://dev.lhowsam.com/api/version"),
-      axios.get<Version>("/api/version/"),
+      axios.get<Version>("https://lhowsam.com/api/version"),
     ]);
 
     const dev = {
       ...development.data,
       environment: "development" as const,
+      title: "lhowsam.com development",
     };
 
     const prod = {
       ...production.data,
       environment: "production" as const,
+      title: "lhowsam.com production",
     };
 
     return [dev, prod];
@@ -36,11 +39,13 @@ const versionService = {
     const stg = {
       ...staging.data,
       environment: "staging" as const,
+      title: "Now Playing staging",
     };
 
     const prod = {
       ...production.data,
       environment: "production" as const,
+      title: "Now Playing production",
     };
 
     return [stg, prod];
@@ -54,6 +59,7 @@ const versionService = {
     const stg = {
       ...staging.data,
       environment: "staging" as const,
+      title: "Pet adoption API staging",
     };
 
     return [stg];
