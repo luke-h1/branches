@@ -5,7 +5,11 @@ import versionService from "@frontend/services/versionService";
 import VersionCard from "@frontend/components/VersionCard/VersionCard";
 
 export default async function Home() {
-  const lhoVersions = await versionService.lhowsamVersions();
+  const [lhoVersions, lambdaVersions, petVersions] = await Promise.all([
+    versionService.lhowsamVersions(),
+    versionService.nowPlayingVersions(),
+    versionService.petVersions(),
+  ]);
   return (
     <Page>
       <PageHeader
@@ -13,12 +17,35 @@ export default async function Home() {
         description="Information about deployed projects"
       />
 
-      <div className={styles.container}>
-        <div className={styles.section}>
-          <h2 className={styles.title}>lhowsam web</h2>
+      <div className={styles.section}>
+        <h2 className={styles.title}>lhowsam web</h2>
+        <div>
           {lhoVersions &&
             lhoVersions.map((lhoVersion) => (
               <VersionCard version={lhoVersion} key={lhoVersion.deployedAt} />
+            ))}
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h2 className={styles.title}>Nowplaying lambdas</h2>
+        <div>
+          {lambdaVersions &&
+            lambdaVersions.map((lambdaVersion) => (
+              <VersionCard
+                version={lambdaVersion}
+                key={lambdaVersion.deployedAt}
+              />
+            ))}
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h2 className={styles.title}>Pet adoption APIs</h2>
+        <div>
+          {petVersions &&
+            petVersions.map((petVersion) => (
+              <VersionCard version={petVersion} key={petVersion.deployedAt} />
             ))}
         </div>
       </div>

@@ -32,8 +32,8 @@ const versionService = {
   },
   nowPlayingVersions: async (): Promise<Version[]> => {
     const [staging, production] = await Promise.all([
-      axios.get<Version>("https://now-playing-staging.lhowsam.com/api/version"),
-      axios.get<Version>("https://now-playing.lhowsam.com/api/version"),
+      axios.get<Version>("https://nowplaying-staging.lhowsam.com/api/version"),
+      axios.get<Version>("https://nowplaying.lhowsam.com/api/version"),
     ]);
 
     const stg = {
@@ -53,7 +53,12 @@ const versionService = {
 
   petVersions: async (): Promise<Version[]> => {
     const staging = await axios.get<Version>(
-      "https://pets-staging.lhowsam.com/api/version"
+      "https://pets-staging.lhowsam.com/api/version",
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
     );
 
     const stg = {
