@@ -16,6 +16,7 @@ export default async function Home() {
     versionService.nowPlayingVersions(),
     versionService.petVersions(),
   ]);
+
   return (
     <Page>
       <PageHeader
@@ -27,9 +28,11 @@ export default async function Home() {
         <h2 className={styles.title}>lhowsam web</h2>
         <div>
           {lhoVersions &&
-            lhoVersions.map((lhoVersion) => (
-              <VersionCard version={lhoVersion} key={lhoVersion.deployedAt} />
-            ))}
+            lhoVersions
+              .sort((a, b) => b.deployedAt.localeCompare(a.deployedAt))
+              .map((lhoVersion) => (
+                <VersionCard version={lhoVersion} key={lhoVersion.deployedAt} />
+              ))}
         </div>
       </div>
 
@@ -37,12 +40,14 @@ export default async function Home() {
         <h2 className={styles.title}>Nowplaying lambdas</h2>
         <div>
           {lambdaVersions &&
-            lambdaVersions.map((lambdaVersion) => (
-              <VersionCard
-                version={lambdaVersion}
-                key={lambdaVersion.deployedAt}
-              />
-            ))}
+            lambdaVersions
+              .sort((a, b) => b.deployedAt.localeCompare(a.deployedAt))
+              .map((lambdaVersion) => (
+                <VersionCard
+                  version={lambdaVersion}
+                  key={lambdaVersion.deployedAt}
+                />
+              ))}
         </div>
       </div>
 
@@ -50,9 +55,11 @@ export default async function Home() {
         <h2 className={styles.title}>Pet adoption APIs</h2>
         <div>
           {petVersions &&
-            petVersions.map((petVersion) => (
-              <VersionCard version={petVersion} key={petVersion.deployedAt} />
-            ))}
+            petVersions
+              .sort((a, b) => b.deployedAt.localeCompare(a.deployedAt))
+              .map((petVersion) => (
+                <VersionCard version={petVersion} key={petVersion.deployedAt} />
+              ))}
         </div>
       </div>
     </Page>

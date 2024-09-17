@@ -1,0 +1,17 @@
+.link {
+  &:focus {
+    outline: transparent;
+  }
+
+  &:focus-visible {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-offset: 2px;
+    outline-color: rgb(73, 73, 218);
+  }
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
