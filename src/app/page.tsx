@@ -3,6 +3,12 @@ import PageHeader from "@frontend/components/PageHeader/PageHeader";
 import styles from "./page.module.scss";
 import versionService from "@frontend/services/versionService";
 import VersionCard from "@frontend/components/VersionCard/VersionCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Branches | branches.lhowsam.com",
+  description: "Information about deployed projects",
+};
 
 export default async function Home() {
   const [lhoVersions, lambdaVersions, petVersions] = await Promise.all([
