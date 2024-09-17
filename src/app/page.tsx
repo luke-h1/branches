@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: "Information about deployed projects",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [lhoVersions, lambdaVersions, petVersions] = await Promise.all([
     versionService.lhowsamVersions(),
