@@ -1,0 +1,47 @@
+@use "_typography";
+@use "reset";
+
+:root {
+  --siteWidth: 100ch;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #fff;
+  color: #000;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+
+* {
+  &::selection {
+    background-color: rgb(155, 62, 155);
+    color: #fff;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #000;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(171, 165, 165);
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(174, 168, 168);
+  }
+}
