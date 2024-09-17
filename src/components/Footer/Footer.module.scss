@@ -1,0 +1,11 @@
+.footer {
+  width: 100%;
+  padding: 30px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-top: 2px solid #eaeaea;
+  p {
+    opacity: 0.75;
+  }
+}
