@@ -12,6 +12,7 @@ function HomePage() {
   const [lhoVersions, setLhoVersions] = useState<FormattedVersion[]>([]);
   const [lambdaVersions, setLambdaVersions] = useState<FormattedVersion[]>([]);
   const [petVersions, setPetVersions] = useState<FormattedVersion[]>([]);
+
   useEffect(() => {
     const fetchVersions = async () => {
       const [lhoVersions, lambdaVersions, petVersions] = await Promise.all([

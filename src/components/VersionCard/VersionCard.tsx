@@ -19,7 +19,6 @@ const VersionCard = ({ version }: Props) => {
         <FormattedDate format="d MMMM yyyy HH:mm">
           {version.deployedAt}
         </FormattedDate>{" "}
-        UTC
       </p>
       <p className={styles.description}>Deployed by: {version.deployedBy}</p>
       <p className={styles.description}>Environment: {version.environment}</p>
