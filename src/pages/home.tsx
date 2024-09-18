@@ -1,23 +1,32 @@
+import { useEffect, useState } from "react";
+import styles from "./home.module.scss";
+import React from "react";
 import Page from "@frontend/components/Page/Page";
 import PageHeader from "@frontend/components/PageHeader/PageHeader";
-import styles from "./page.module.scss";
-import versionService from "@frontend/services/versionService";
 import VersionCard from "@frontend/components/VersionCard/VersionCard";
-import { Metadata } from "next";
+import versionService, {
+  FormattedVersion,
+} from "@frontend/services/versionService";
 
-export const metadata: Metadata = {
-  title: "Branches | branches.lhowsam.com",
-  description: "Information about deployed projects",
-};
+function HomePage() {
+  const [lhoVersions, setLhoVersions] = useState<FormattedVersion[]>([]);
+  const [lambdaVersions, setLambdaVersions] = useState<FormattedVersion[]>([]);
+  const [petVersions, setPetVersions] = useState<FormattedVersion[]>([]);
+  useEffect(() => {
+    const fetchVersions = async () => {
+      const [lhoVersions, lambdaVersions, petVersions] = await Promise.all([
+        versionService.lhowsamVersions(),
+        versionService.nowPlayingVersions(),
+        versionService.petVersions(),
+      ]);
+      setLhoVersions(lhoVersions);
+      setLambdaVersions(lambdaVersions);
+      setPetVersions(petVersions);
+    };
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  const [lhoVersions, lambdaVersions, petVersions] = await Promise.all([
-    versionService.lhowsamVersions(),
-    versionService.nowPlayingVersions(),
-    versionService.petVersions(),
-  ]);
+    fetchVersions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Page>
@@ -67,3 +76,5 @@ export default async function Home() {
     </Page>
   );
 }
+
+export default HomePage;
