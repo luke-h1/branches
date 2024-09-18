@@ -27,7 +27,7 @@
 }
 
 .description {
-  margin-bottom: 30px;
+  margin-bottom: 17px;
   font-weight: 500;
   font-size: 17px;
   line-height: 1.5;
@@ -35,5 +35,23 @@
 
   @media (min-width: 480px) {
     font-size: 19px;
+  }
+}
+
+.uptime {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  h3 {
+    margin-right: 0.45rem;
+  }
+}
+
+.extLink {
+  margin-left: 0.35rem;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
   }
 }
