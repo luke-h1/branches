@@ -1,5 +1,4 @@
-import NextLink from "next/link";
-import type { LinkProps } from "next/link";
+import { Link as BaseLink, LinkProps } from "react-router-dom";
 import { ReactNode } from "react";
 import styles from "./Link.module.scss";
 
@@ -7,7 +6,7 @@ type Props = {
   children: ReactNode;
   id?: string;
   href: string;
-} & Omit<LinkProps, "href">;
+} & Omit<LinkProps, "to">;
 
 const Link = ({ children, id, href, ...props }: Props) => {
   const isAbsolute = typeof href === "string" && href.startsWith("http");
@@ -29,9 +28,9 @@ const Link = ({ children, id, href, ...props }: Props) => {
   }
 
   return (
-    <NextLink id={id} href={href} {...props} className={styles.link}>
+    <BaseLink id={id} to={href} {...props} className={styles.link}>
       {children}
-    </NextLink>
+    </BaseLink>
   );
 };
 export default Link;
