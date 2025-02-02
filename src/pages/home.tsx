@@ -17,7 +17,6 @@ function HomePage() {
       const [lhoVersions, lambdaVersions] = await Promise.all([
         versionService.lhowsamVersions(),
         versionService.nowPlayingVersions(),
-        versionService.petVersions(),
       ]);
       setLhoVersions(lhoVersions);
       setLambdaVersions(lambdaVersions);
