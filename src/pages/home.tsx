@@ -11,18 +11,16 @@ import versionService, {
 function HomePage() {
   const [lhoVersions, setLhoVersions] = useState<FormattedVersion[]>([]);
   const [lambdaVersions, setLambdaVersions] = useState<FormattedVersion[]>([]);
-  const [petVersions, setPetVersions] = useState<FormattedVersion[]>([]);
 
   useEffect(() => {
     const fetchVersions = async () => {
-      const [lhoVersions, lambdaVersions, petVersions] = await Promise.all([
+      const [lhoVersions, lambdaVersions] = await Promise.all([
         versionService.lhowsamVersions(),
         versionService.nowPlayingVersions(),
         versionService.petVersions(),
       ]);
       setLhoVersions(lhoVersions);
       setLambdaVersions(lambdaVersions);
-      setPetVersions(petVersions);
     };
 
     fetchVersions();
@@ -59,18 +57,6 @@ function HomePage() {
                   version={lambdaVersion}
                   key={lambdaVersion.deployedAt}
                 />
-              ))}
-        </div>
-      </div>
-
-      <div className={styles.section}>
-        <h2 className={styles.title}>Pet adoption APIs</h2>
-        <div>
-          {petVersions &&
-            petVersions
-              .sort((a, b) => b.deployedAt.localeCompare(a.deployedAt))
-              .map((petVersion) => (
-                <VersionCard version={petVersion} key={petVersion.deployedAt} />
               ))}
         </div>
       </div>
