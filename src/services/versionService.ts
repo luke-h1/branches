@@ -58,24 +58,17 @@ const versionService = {
 
     return [stg, prod];
   },
-
-  petVersions: async (): Promise<FormattedVersion[]> => {
+  foamProxyVersions: async (): Promise<FormattedVersion[]> => {
     const staging = await axios.get<Version>(
-      "https://pets-staging.lhowsam.com/api/version",
-      {
-        headers: {
-          Accept: "application/json",
-        },
-      }
+      "https://foam-staging.lhowsam.com/api/version"
     );
 
     const stg = {
       ...staging.data,
       environment: "staging" as const,
-      title: "Pet adoption API staging",
-      url: "https://pets-staging.lhowsam.com",
+      title: "Foam auth proxy staging",
+      url: "https://foam-staging.lhowsam.com",
     };
-
     return [stg];
   },
 };
