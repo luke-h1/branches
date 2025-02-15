@@ -9,17 +9,24 @@ import versionService, {
 } from "@frontend/services/versionService";
 
 function HomePage() {
-  const [lhoVersions, setLhoVersions] = useState<FormattedVersion[]>([]);
-  const [lambdaVersions, setLambdaVersions] = useState<FormattedVersion[]>([]);
+  const [versions, setVersions] = useState<{
+    lhoVersions: FormattedVersion[];
+    lambdaVersions: FormattedVersion[];
+    foamVersions: FormattedVersion[];
+  }>({
+    lhoVersions: [],
+    lambdaVersions: [],
+    foamVersions: [],
+  });
 
   useEffect(() => {
     const fetchVersions = async () => {
-      const [lhoVersions, lambdaVersions] = await Promise.all([
+      const [lhoVersions, lambdaVersions, foamVersions] = await Promise.all([
         versionService.lhowsamVersions(),
         versionService.nowPlayingVersions(),
+        versionService.foamProxyVersions(),
       ]);
-      setLhoVersions(lhoVersions);
-      setLambdaVersions(lambdaVersions);
+      setVersions({ lhoVersions, lambdaVersions, foamVersions });
     };
 
     fetchVersions();
@@ -36,8 +43,8 @@ function HomePage() {
       <div className={styles.section}>
         <h2 className={styles.title}>lhowsam web</h2>
         <div>
-          {lhoVersions &&
-            lhoVersions
+          {versions.lhoVersions &&
+            versions.lhoVersions
               .sort((a, b) => b.deployedAt.localeCompare(a.deployedAt))
               .map((lhoVersion) => (
                 <VersionCard version={lhoVersion} key={lhoVersion.deployedAt} />
@@ -48,13 +55,27 @@ function HomePage() {
       <div className={styles.section}>
         <h2 className={styles.title}>Nowplaying lambdas</h2>
         <div>
-          {lambdaVersions &&
-            lambdaVersions
+          {versions.lambdaVersions &&
+            versions.lambdaVersions
               .sort((a, b) => b.deployedAt.localeCompare(a.deployedAt))
               .map((lambdaVersion) => (
                 <VersionCard
                   version={lambdaVersion}
                   key={lambdaVersion.deployedAt}
+                />
+              ))}
+        </div>
+      </div>
+      <div className={styles.section}>
+        <h2 className={styles.title}>Foam Auth proxy</h2>
+        <div>
+          {versions.foamVersions &&
+            versions.foamVersions
+              .sort((a, b) => b.deployedAt.localeCompare(a.deployedAt))
+              .map((foamVersion) => (
+                <VersionCard
+                  version={foamVersion}
+                  key={foamVersion.deployedAt}
                 />
               ))}
         </div>
