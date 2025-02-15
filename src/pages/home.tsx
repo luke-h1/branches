@@ -21,12 +21,12 @@ function HomePage() {
 
   useEffect(() => {
     const fetchVersions = async () => {
-      const [lhoVersions, lambdaVersions, foamVersions] = await Promise.all([
+      const [lhoVersions, lambdaVersions] = await Promise.all([
         versionService.lhowsamVersions(),
         versionService.nowPlayingVersions(),
-        versionService.foamProxyVersions(),
+        // versionService.foamProxyVersions(),
       ]);
-      setVersions({ lhoVersions, lambdaVersions, foamVersions });
+      setVersions({ lhoVersions, lambdaVersions, foamVersions: [] });
     };
 
     fetchVersions();
